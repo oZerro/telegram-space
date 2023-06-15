@@ -13,5 +13,5 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
                      level=logging.INFO)
 
 
-bot.send_message(chat_id='@spaceozerro', text="I'm a bot, please talk to me!")
+bot.send_photo(chat_id='@spaceozerro', photo=open('./images/nasa_apod_1.jpg', 'rb'))
 
