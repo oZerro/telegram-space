@@ -1,12 +1,13 @@
 import requests
 import datetime
 import os
+import argparse
 from telegram_space import save_img, file_extension
 from pathlib import Path
 from dotenv import load_dotenv
 
 
-def get_nasa_epik(token):
+def get_nasa_epik(token, count=10):
     params = {
         "api_key": f"{token}"
     }
@@ -28,7 +29,7 @@ def get_nasa_epik(token):
         count_image += 1
         count_iter += 1
 
-        if count_iter > 9:
+        if count_iter > count-1:
             break
 
 
@@ -36,4 +37,8 @@ if __name__ == "__main__":
     load_dotenv()
     token = os.environ['API_TOKEN_NASA']
     Path("images").mkdir(parents=True, exist_ok=True)
-    get_nasa_epik(token)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--count", type=int)
+    args = parser.parse_args()
+    get_nasa_epik(token, args.count)
