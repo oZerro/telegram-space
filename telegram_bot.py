@@ -1,17 +1,27 @@
 import os
 import telegram
-import logging
+import time
+import argparse
+import random
 from dotenv import load_dotenv
 from telegram.ext import Updater, CallbackContext, CommandHandler
 from telegram import Update
 
-load_dotenv()
 
-bot = telegram.Bot(token=os.environ['TELEGRAM_TOKEN'])
+def post_img(interval=60*60*4):
+    while True:
+        for img in list_img:
+            bot.send_photo(chat_id='@spaceozerro', photo=open(f'./images/{img}', 'rb'))
+            time.sleep(interval)
+        random.shuffle(list_img)
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                     level=logging.INFO)
 
-
-bot.send_photo(chat_id='@spaceozerro', photo=open('./images/nasa_apod_1.jpg', 'rb'))
+if __name__ == "__main__":
+    load_dotenv()
+    bot = telegram.Bot(token=os.environ['TELEGRAM_TOKEN'])
+    list_img = list(os.walk("images"))[0][2]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--interval", type=int)
+    args = parser.parse_args()
+    post_img(args.interval)
 
