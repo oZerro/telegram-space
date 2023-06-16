@@ -67,10 +67,10 @@ Python 3 уже должен быть установлен
 
 Примеры команды запуска:  
 
-```python telegram_bot.py @channel_name --interval 5```  
+```python telegram_bot.py "@channel_name" --interval 5```  
 Команда выше будет выкладывать рандомные изображение с интервалом 5 секунд.  
 
-```python telegram_bot.py @channel_name --images_name "nasa_apod_1.jpg" --interval 15```  
+```python telegram_bot.py "@channel_name" --images_name "nasa_apod_1.jpg" --interval 15```  
 Команда выше сперва сделает пост изображения, которое вы передали, а после будет доставать рандомные с интервалом 15 секунд. 
 
 
