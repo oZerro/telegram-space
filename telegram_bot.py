@@ -26,7 +26,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("chat_id")
     parser.add_argument("--interval", type=int)
-    parser.add_argument("--images_path", type=str)
+    parser.add_argument("--images_name", type=str)
     args = parser.parse_args()
-    post_img(args.chat_id, args.images_path, args.interval)
+    post_img(args.chat_id, args.images_name, args.interval)
 
