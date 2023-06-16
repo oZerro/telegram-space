@@ -1,13 +1,17 @@
 import requests
+import argparse
+import os
 from telegram_space import save_img, file_extension
 from pathlib import Path
+from dotenv import load_dotenv
 
 
-def get_nasa_apod():
+def get_nasa_apod(token, count=30):
     params = {
-        "count": 30
+        "api_key": f"{token}",
+        "count": count
     }
-    url = "http://etokosmo.ru:5678/v1/apod/" 
+    url = "https://api.nasa.gov/planetary/apod" 
     response = requests.get(url, params=params)
     response.raise_for_status()
     
@@ -19,5 +23,11 @@ def get_nasa_apod():
 
 
 if __name__ == "__main__":
+    load_dotenv()
+    token = os.environ['API_TOKEN_NASA']
     Path("images").mkdir(parents=True, exist_ok=True)
-    get_nasa_apod()
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--count", type=int)
+    args = parser.parse_args()
+    get_nasa_apod(token, args.count)

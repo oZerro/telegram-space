@@ -3,7 +3,6 @@ import argparse
 from telegram_space import save_img, file_extension
 from pathlib import Path
 
-#5eb87d47ffd86e000604b38a
 
 
 def fetch_spacex_last_launch(id_spacex):
