@@ -2,7 +2,7 @@ import requests
 import datetime
 import os
 import argparse
-from telegram_space import save_img, get_file_extension
+from general_functions import save_img, get_file_extension
 from pathlib import Path
 from dotenv import load_dotenv
 

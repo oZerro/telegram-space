@@ -7,15 +7,9 @@ from dotenv import load_dotenv
 from telegram.error import BadRequest
 
 
-def loads_endless_posts(chat_id, images_name, images, interval=60*60*4):
-    if images_name != None:
-        try:
-            with open(f'./images/{images_name}', 'rb') as photo:
-                bot.send_photo(chat_id=chat_id, photo=photo)
-                time.sleep(interval)
-        except BadRequest as ex:
-            print(ex)
-            
+def loads_endless_posts(chat_id, image_name, images, interval=60*60*4):
+    if image_name:
+        loads_one_image(image_name, chat_id)      
     while True:
         for img in images:
             try:
@@ -26,7 +20,17 @@ def loads_endless_posts(chat_id, images_name, images, interval=60*60*4):
                 print(ex)
                 continue
         random.shuffle(images)
-        
+
+
+def loads_one_image(image_name, chat_id):
+    if image_name:
+        try:
+            with open(f'./images/{image_name}', 'rb') as photo:
+                bot.send_photo(chat_id=chat_id, photo=photo)
+        except BadRequest as ex:
+            print("Вы пытаетесь загрузить слишком тяжелое изображение, лимит - 20 MB.\n \
+                  Попробуйте загрузить другое изображение.")
+
 
 if __name__ == "__main__":
     load_dotenv()

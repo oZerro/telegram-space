@@ -1,15 +1,15 @@
 import requests
 import argparse
-from telegram_space import save_img, get_file_extension
+from general_functions import save_img, get_file_extension
 from pathlib import Path
 
 
 
 def fetch_spacex_last_launch(id_spacex):
-    url = "https://api.spacexdata.com/v5/launches/"
+    url = "https://api.spacexdata.com/v5/launches"
     
     if id_spacex == "latest":
-        response = requests.get(url)
+        response = requests.get(f'{url}/latest')
     else:
         params = {
             "id": f"{id_spacex}",
@@ -17,11 +17,11 @@ def fetch_spacex_last_launch(id_spacex):
         response = requests.get(url, params=params)
     response.raise_for_status()
 
-    dictionary_set_with_images = []
+    dictionary_with_images = []
     response = response.json()
     if type(response) == dict:
-        dictionary_set_with_images.append(response)
-        response = dictionary_set_with_images
+        dictionary_with_images.append(response)
+        response = dictionary_with_images
 
     image_number = 0
     for img in response:
