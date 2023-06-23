@@ -6,30 +6,21 @@ from pathlib import Path
 
 
 def fetch_spacex_last_launch(id_spacex):
-    url = "https://api.spacexdata.com/v5/launches"
+    url = "https://api.spacexdata.com/v5/launches/"
     
     if id_spacex == "latest":
-        response = requests.get(f'{url}/latest')
+        response = requests.get(f'{url}latest')
     else:
-        params = {
-            "id": f"{id_spacex}",
-        }
-        response = requests.get(url, params=params)
+        response = requests.get(f'{url}{id_spacex}')
     response.raise_for_status()
-
-    dictionary_with_images = []
     response = response.json()
-    if type(response) == dict:
-        dictionary_with_images.append(response)
-        response = dictionary_with_images
 
     image_number = 0
-    for img in response:
-        images = img['links']['flickr']['original']       
-        for image in images:
-            file_format = get_file_extension(image)
-            save_img(image, {}, f'spasex_{image_number}{file_format}')
-            image_number += 1
+    images = response['links']['flickr']['original']       
+    for image in images:
+        file_format = get_file_extension(image)
+        save_img(image, {}, f'spasex_{image_number}{file_format}')
+        image_number += 1
 
 
 if __name__ == "__main__":
