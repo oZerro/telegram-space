@@ -7,9 +7,7 @@ from dotenv import load_dotenv
 from telegram.error import BadRequest
 
 
-def loads_endless_posts(chat_id, image_name, images, interval):
-    if image_name:
-        loads_one_image(image_name, chat_id)      
+def loads_endless_posts(chat_id, images, interval):     
     while True:
         for img in images:
             try:
@@ -54,5 +52,9 @@ if __name__ == "__main__":
                         default="spacex_0.jpg",
                         help="имя изображения в формате nasa.jpg")
     args = parser.parse_args()
-    loads_endless_posts(args.chat_id, args.images_name, images, args.interval)
+
+    if args.images_name:
+        loads_one_image(args.images_name, args.chat_id)
+
+    loads_endless_posts(args.chat_id, images, args.interval)
 
