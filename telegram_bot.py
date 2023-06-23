@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from telegram.error import BadRequest
 
 
-def loads_endless_posts(chat_id, image_name, images, interval=60*60*4):
+def loads_endless_posts(chat_id, image_name, images, interval):
     if image_name:
         loads_one_image(image_name, chat_id)      
     while True:
@@ -45,8 +45,14 @@ if __name__ == "__main__":
                       то будут выбираться рандомные изображения из папки images.'
     )
     parser.add_argument("chat_id", help="id вашего канала в формате @channel_name")
-    parser.add_argument("--interval", type=int, help="интервал публикаций")
-    parser.add_argument("--images_name", type=str, help="имя изображения в формате nasa.jpg")
+    parser.add_argument("--interval", 
+                        type=int,
+                        default=60*60*4, 
+                        help="интервал публикаций")
+    parser.add_argument("--images_name", 
+                        type=str,
+                        default="spacex_0.jpg",
+                        help="имя изображения в формате nasa.jpg")
     args = parser.parse_args()
     loads_endless_posts(args.chat_id, args.images_name, images, args.interval)
 
