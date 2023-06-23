@@ -5,13 +5,13 @@ from pathlib import Path
 
 
 
-def fetch_spacex_last_launch(id_spacex):
+def fetch_spacex_last_launch(spacex_id):
     url = "https://api.spacexdata.com/v5/launches/"
     
-    if id_spacex == "latest":
+    if spacex_id == "latest":
         response = requests.get(f'{url}latest')
     else:
-        response = requests.get(f'{url}{id_spacex}')
+        response = requests.get(f'{url}{spacex_id}')
     response.raise_for_status()
     response = response.json()
 
@@ -28,9 +28,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Скачивает изображения с сайта Space_X. По дефолту скачивает фото с последнего запуска."
         )
-    parser.add_argument("--id_spacex",
+    parser.add_argument("--spacex_id",
                         type=str,
                         default="latest",
                         help="id запуска, с которого нужно получить фото")
     args = parser.parse_args()
-    fetch_spacex_last_launch(args.id_spacex)
+    fetch_spacex_last_launch(args.spacex_id)
