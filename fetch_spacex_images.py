@@ -19,7 +19,7 @@ def fetch_spacex_last_launch(spacex_id):
     images = response['links']['flickr']['original']       
     for image in images:
         file_format = get_file_extension(image)
-        save_img(image, {}, f'spasex_{image_number}{file_format}')
+        save_img(image, {}, f'spaсex_{image_number}{file_format}')
         image_number += 1
 
 
