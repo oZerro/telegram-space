@@ -11,8 +11,8 @@ def save_img(url, params=None, filename=""):
 
 
 def get_file_extension(path):
-    o = urlparse(path)
-    filename = split(o.path)[1]
+    broken_path = urlparse(path)
+    filename = split(broken_path.path)[1]
     file_extension = splitext(filename)[1]
     return file_extension
 
