@@ -7,11 +7,7 @@ from pathlib import Path
 
 def fetch_spacex_last_launch(spacex_id):
     url = "https://api.spacexdata.com/v5/launches/"
-    
-    if spacex_id == "latest":
-        response = requests.get(f'{url}latest')
-    else:
-        response = requests.get(f'{url}{spacex_id}')
+    response = requests.get(f'{url}{spacex_id}')
     response.raise_for_status()
     response = response.json()
 
