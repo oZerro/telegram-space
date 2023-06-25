@@ -21,13 +21,12 @@ def loads_endless_posts(chat_id, images, interval):
 
 
 def loads_one_image(image_name, chat_id):
-    if image_name:
-        try:
-            with open(f'./images/{image_name}', 'rb') as photo:
-                bot.send_photo(chat_id=chat_id, photo=photo)
-        except BadRequest as ex:
-            print("Вы пытаетесь загрузить слишком тяжелое изображение, лимит - 20 MB.\n \
-                  Попробуйте загрузить другое изображение.")
+    try:
+        with open(f'./images/{image_name}', 'rb') as photo:
+            bot.send_photo(chat_id=chat_id, photo=photo)
+    except BadRequest as ex:
+        print("Вы пытаетесь загрузить слишком тяжелое изображение, лимит - 20 MB.\n \
+               Попробуйте загрузить другое изображение.")
 
 
 if __name__ == "__main__":
@@ -55,6 +54,6 @@ if __name__ == "__main__":
 
     if args.images_name:
         loads_one_image(args.images_name, args.chat_id)
-
-    loads_endless_posts(args.chat_id, images, args.interval)
+    else:
+        loads_endless_posts(args.chat_id, images, args.interval)
 
