@@ -11,12 +11,10 @@ def fetch_spacex_last_launch(spacex_id):
     response.raise_for_status()
     response = response.json()
 
-    image_number = 0
     images = response['links']['flickr']['original']       
-    for image in images:
+    for image_number, image in enumerate(images):
         file_format = get_file_extension(image)
         save_img(image, {}, f'spaсex_{image_number}{file_format}')
-        image_number += 1
 
 
 if __name__ == "__main__":
